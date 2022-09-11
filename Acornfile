@@ -9,7 +9,7 @@ containers: {
       "pg",
       "redis"
     ]
-    ports: "3000/tcp"
+    ports: "3000/http"
   }
   redis: {
     image: "redis:alpine"
