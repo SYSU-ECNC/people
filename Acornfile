@@ -9,7 +9,7 @@ containers: {
       "pg",
       "redis"
     ]
-    ports: publish: "3000/http"
+    ports: publish: "people.ecnc.link:3000"
   }
   redis: {
     image: "redis:alpine"
