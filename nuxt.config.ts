@@ -3,7 +3,7 @@ import { defineNuxtConfig } from 'nuxt'
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   runtimeConfig: {
-    redisUrl: '',
+    redisUrl: 'redis://localhost:6379/',
     session: {
       cookieName: 'ecnc-sso-session',
       expires: 7200,

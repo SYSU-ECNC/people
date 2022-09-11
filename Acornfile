@@ -1,0 +1,50 @@
+containers: {
+  app: {
+    build: "."
+    env: {
+      "DATABASE_URL": "secret://database-url/database-url",
+      "NUXT_REDIS_URL": "redis://redis:6379/",
+    }
+    dependsOn: [
+      "pg",
+      "redis"
+    ]
+    ports: publish: "3000/http"
+  }
+  redis: {
+    image: "redis:alpine"
+    ports: "6379/tcp"
+  }
+  pg: {
+    image: "postgres:alpine"
+    env: {
+      "POSTGRES_DB": "people"
+      "POSTGRES_PASSWORD": "secret://pg-pass/token"
+    }
+    dirs: {
+      "/var/lib/postgresql/data": "volume://pgdata?subpath=data"
+    }
+    ports: "5432/tcp"
+  }
+}
+
+volumes: {
+  "pgdata": {
+    accessModes: "readWriteOnce"
+  }
+  "redisdata": {
+    accessModes: "readWriteOnce"
+  }
+}
+
+secrets: {
+  "pg-pass": {
+    type: "token"
+  }
+  "database-url": {
+    type: "template"
+    data: {
+      template: "postgresql://postgres:${secret://pg-pass/token}@pg:5432/people?schema=public"
+    }
+  }
+}
