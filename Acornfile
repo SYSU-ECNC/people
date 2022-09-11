@@ -2,7 +2,7 @@ containers: {
   app: {
     build: "."
     env: {
-      "DATABASE_URL": "secret://database-url/database-url",
+      "DATABASE_URL": "secret://database-url/template",
       "NUXT_REDIS_URL": "redis://redis:6379/",
     }
     dependsOn: [
