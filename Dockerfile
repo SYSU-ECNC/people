@@ -2,9 +2,12 @@ FROM node:18-alpine
 
 RUN mkdir -p /usr/src/nuxt-app
 WORKDIR /usr/src/nuxt-app
-COPY . .
 
+COPY package*.json .
+COPY prisma ./prisma/
 RUN npm ci && npm cache clean --force
+
+COPY . .
 RUN npm run build
 
 ENV NUXT_HOST=0.0.0.0
