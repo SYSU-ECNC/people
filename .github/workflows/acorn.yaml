@@ -21,7 +21,9 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ghcr.io/sysu-ecnc/people
+          tags: |
+            type=sha
       - name: Build and Push
         run: |
-          acorn build -t ghcr.io/sysu-ecnc/people:${{ steps.meta.outputs.tags }} .
-          acorn push ghcr.io/sysu-ecnc/people:${{ steps.meta.outputs.tags }}
+          acorn build -t ${{ steps.meta.outputs.tags }} .
+          acorn push ${{ steps.meta.outputs.tags }}
