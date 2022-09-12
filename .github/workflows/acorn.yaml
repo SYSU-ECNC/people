@@ -19,6 +19,8 @@ jobs:
       - name: Extract Docker meta from GitHub events
         id: meta
         uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/sysu-ecnc/people
       - name: Build and Push
         run: |
           acorn build -t ghcr.io/sysu-ecnc/people:${{ steps.meta.outputs.tags }} .
