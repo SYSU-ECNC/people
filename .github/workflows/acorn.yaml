@@ -1,0 +1,25 @@
+name: Build Acron Image
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  publish:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: acorn-io/actions-setup@v1
+      - uses: acorn-io/actions-login@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract Docker meta from GitHub events
+        id: meta
+        uses: docker/metadata-action@v3
+      - name: Build and Push
+        run: |
+          acorn build -t ghcr.io/sysu-ecnc/people:${{ steps.meta.outputs.tags }} .
+          acorn push ghcr.io/sysu-ecnc/people:${{ steps.meta.outputs.tags }}
