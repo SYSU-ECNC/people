@@ -29,7 +29,13 @@ const logout = async () => {
 
   isLogoutLoading.value = true;
   await client.mutation('logout');
-  await refreshNuxtData();
+  await navigateTo({
+    path: '/sso/login',
+    query: {
+      redirect,
+      disable_wechat: 'true',
+    },
+  });
   isLogoutLoading.value = false;
 };
 
