@@ -1,7 +1,13 @@
 args: {
   userConfigData: {
-    wechat: {}
-    discourse: {}
+    wechat: {
+      appId:
+      appSecret:
+    }
+    discourse: {
+      host:
+      secret:
+    }
   }
 }
 
