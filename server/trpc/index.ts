@@ -91,7 +91,37 @@ export const router = trpc
       await createSession(ctx.event, user);
     },
   })
-  .query('linkWechat', {
+  .query('linkWechatFromSession', {
+    input: z.object({
+      state: z.string(),
+    }),
+    async resolve({ ctx: { session }, input: { state } }) {
+      if (!session) {
+        throw new trpc.TRPCError({
+          code: 'UNAUTHORIZED',
+          message: '您还没登录呢',
+        });
+      }
+
+      const openId = await useRedis().get(`sso:wechat:${state}:openid`);
+      if (!openId) {
+        throw new trpc.TRPCError({
+          code: 'BAD_REQUEST',
+          message: '获取微信用户身份时发生错误，请重试。',
+        });
+      }
+
+      await usePrisma().user.update({
+        where: {
+          netid: session.netid,
+        },
+        data: {
+          wechatOpenId: openId,
+        },
+      });
+    },
+  })
+  .query('linkWechatFromWxwork', {
     input: z.object({
       state: z.string(),
     }),

@@ -12,7 +12,7 @@ headers.value = useRequestHeaders();
 
 async function linkWechat(state: string) {
   const { error } = await useAsyncQuery([
-    'linkWechatFromWxwork',
+    'linkWechatFromSession',
     {
       state,
     },
