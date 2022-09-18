@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
   params.append('appid', useRuntimeConfig().wechat.appId);
   params.append(
     'redirect_uri',
-    'http://127.0.0.1:3000/api/sso/wechat/callback'
+    'https://people.ecnc.link/api/sso/wechat/callback'
   );
   params.append('response_type', 'code');
   params.append('scope', 'snsapi_base');
