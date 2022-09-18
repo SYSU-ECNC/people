@@ -26,8 +26,10 @@ const {
       <p class="text-3xl my-0 text-[#2080F0]">快速绑定微信号</p>
     </div>
     <migrate-non-wechat v-if="!isWeChatLoginEnabled"></migrate-non-wechat>
-    <migrate-result v-if="state"></migrate-result>
-    <migrate-confirm v-else></migrate-confirm>
+    <div v-else>
+      <migrate-result v-if="state"></migrate-result>
+      <migrate-confirm v-else></migrate-confirm>
+    </div>
   </div>
 </template>
 
