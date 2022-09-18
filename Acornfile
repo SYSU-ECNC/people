@@ -1,14 +1,18 @@
 args: {
-  userConfigData: {
+  userConfigData: {}
+}
+
+localData: {
+  config: std.merge({
     wechat: {
-      appId:
-      appSecret:
+      appId: ""
+      appSecret: ""
     }
     discourse: {
-      host:
-      secret:
+      host: ""
+      secret: ""
     }
-  }
+  }, userConfigData)
 }
 
 containers: {
@@ -67,10 +71,10 @@ secrets: {
   "env": {
     type: "opaque"
     data: {
-      wechatAppId: args.userConfigData.wechat.appId,
-      wechatAppSecret: args.userConfigData.wechat.appSecret
-      discourseHost: args.userConfigData.discourse.host
-      discourseSecret: args.userConfigData.discourse.secret
+      wechatAppId: localData.config.wechat.appId,
+      wechatAppSecret: localData.config.wechat.appSecret
+      discourseHost: localData.config.discourse.host
+      discourseSecret: localData.config.discourse.secret
     }
   }
 }
