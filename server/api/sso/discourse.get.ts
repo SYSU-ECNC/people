@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
   const params = new URLSearchParams(decodedParams);
 
   const nonce = params.get('nonce');
-  const redirect = params.get('redirect');
+  const redirect = params.get('return_sso_url');
   if (!nonce || !redirect) {
     throw createError({
       statusCode: 400,

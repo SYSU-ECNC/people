@@ -179,11 +179,11 @@ export const router = trpc
       hmac.update(encodedPayload);
       const sig = hmac.digest('hex');
 
-      return new URL(
-        `https://${
-          useRuntimeConfig().discourse.host
-        }/session/sso_login?sso=${encodedPayload}&sig=${sig}`
-      ).toString();
+      const redirectUrl = new URL(redirect);
+      redirectUrl.searchParams.set('sso', encodedPayload);
+      redirectUrl.searchParams.set('sig', sig);
+
+      return redirectUrl.toString();
     },
   })
   .mutation('logout', {
