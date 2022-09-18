@@ -12,7 +12,7 @@ localData: {
       host: ""
       secret: ""
     }
-  }, userConfigData)
+  }, args.userConfigData)
 }
 
 containers: {
