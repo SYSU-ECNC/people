@@ -1,5 +1,5 @@
-import { useSession } from "~~/server/lib/session"
-import { createError } from "h3";
+import { createError } from 'h3';
+import { useSession } from '~~/server/lib/session';
 
 export default defineEventHandler(async (event) => {
   const session = await useSession(event);
@@ -12,4 +12,4 @@ export default defineEventHandler(async (event) => {
   }
 
   return session;
-})
+});

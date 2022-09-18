@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client"
-import Redis from "ioredis"
+import { PrismaClient } from '@prisma/client';
+import Redis from 'ioredis';
 
 const prisma = new PrismaClient();
 const redis = new Redis(useRuntimeConfig().redisUrl);

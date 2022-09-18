@@ -1,12 +1,18 @@
 <script lang="ts" setup>
-import { NLayout, NLayoutSider, NLayoutContent, NMenu, MenuOption } from 'naive-ui';
+import {
+  NLayout,
+  NLayoutSider,
+  NLayoutContent,
+  NMenu,
+  MenuOption,
+} from 'naive-ui';
 
 const menuOptions = ref<MenuOption[]>([
   {
     key: 'user',
     label: 'User',
-  }
-])
+  },
+]);
 </script>
 
 <template>

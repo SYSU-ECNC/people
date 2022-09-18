@@ -1,5 +1,5 @@
-import { usePrisma } from "../../lib/storage"
-import { useSession } from "~~/server/lib/session";
+import { usePrisma } from '../../lib/storage';
+import { useSession } from '~~/server/lib/session';
 
 export default defineEventHandler(async (event) => {
   const session = await useSession(event);
@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 401,
       statusMessage: 'Unauthorized',
-    })
+    });
   }
 
   return await usePrisma().user.findMany({
@@ -20,5 +20,5 @@ export default defineEventHandler(async (event) => {
       larkUnionId: true,
       wechatOpenId: true,
     },
-  })
-})
+  });
+});

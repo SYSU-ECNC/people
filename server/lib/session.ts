@@ -1,8 +1,7 @@
-import { useRedis } from "./storage";
-
 import type { H3Event } from 'h3';
-import { nanoid } from "nanoid";
-import { User } from "@prisma/client";
+import { nanoid } from 'nanoid';
+import { User } from '@prisma/client';
+import { useRedis } from './storage';
 
 export interface Session {
   netid: string;
@@ -41,11 +40,11 @@ export const useSession = async (event: H3Event) => {
       netid: parsedUser.netid,
       name: parsedUser.name,
       studentId: parsedUser.studentId,
-    }
+    };
   } catch (e) {
     return null;
   }
-}
+};
 
 export const createSession = async (event: H3Event, user: User) => {
   const { netid } = user;
@@ -53,21 +52,61 @@ export const createSession = async (event: H3Event, user: User) => {
 
   const now = new Date();
   const session: Session = {
-    netid: netid,
+    netid,
     ip: getRealIp(event),
     userAgent: getUserAgent(event),
     createdAt: now,
     lastSeenAt: now,
-  }
+  };
 
-  await useRedis().setex(`session:${sessionId}`, useRuntimeConfig().session.expires, JSON.stringify(session));
+  await useRedis().setex(
+    `session:${sessionId}`,
+    useRuntimeConfig().session.expires,
+    JSON.stringify(session)
+  );
   await useRedis().set(`user:${netid}`, JSON.stringify(user));
 
-  setCookie(event, useRuntimeConfig().session.cookieName, sessionId, process.env.NODE_ENV === 'production' ? {
-    domain: '.ecnc.link',
-    httpOnly: true,
-    secure: true,
-  } : undefined);
+  setCookie(
+    event,
+    useRuntimeConfig().session.cookieName,
+    sessionId,
+    process.env.NODE_ENV === 'production'
+      ? {
+          domain: '.ecnc.link',
+          httpOnly: true,
+          secure: true,
+        }
+      : undefined
+  );
 
   return sessionId;
-}
+};
+
+export const deleteSession = async (event: H3Event) => {
+  const sessionCookieName = useRuntimeConfig().session.cookieName;
+  const sessionId = getCookie(event, sessionCookieName);
+  if (!sessionId) {
+    return null;
+  }
+
+  const expiresDate = new Date(0);
+  const cookieOptions = {
+    expires: expiresDate,
+  };
+
+  setCookie(
+    event,
+    sessionCookieName,
+    '',
+    process.env.NODE_ENV === 'production'
+      ? {
+          domain: '.ecnc.link',
+          httpOnly: true,
+          secure: true,
+          ...cookieOptions,
+        }
+      : cookieOptions
+  );
+
+  await useRedis().del(`session:${sessionId}`);
+};

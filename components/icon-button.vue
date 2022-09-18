@@ -5,7 +5,7 @@ type NButtonProps = InstanceType<typeof NButton>['$props'];
 
 interface IconButtonProps extends NButtonProps {
   icon: string;
-};
+}
 
 const props = defineProps<IconButtonProps>();
 </script>
@@ -22,7 +22,7 @@ const props = defineProps<IconButtonProps>();
 </template>
 
 <style scoped>
-  :deep(.icon) {
-    vertical-align: inherit;
-  }
+:deep(.icon) {
+  vertical-align: inherit;
+}
 </style>
