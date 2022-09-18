@@ -26,8 +26,8 @@ const {
     </div>
     <migrate-non-wechat v-if="!isWeChatLoginEnabled"></migrate-non-wechat>
     <div v-else>
-      <migrate-result v-if="state"></migrate-result>
-      <migrate-confirm v-else></migrate-confirm>
+      <link-result v-if="state"></link-result>
+      <link-confirm v-else></link-confirm>
     </div>
   </div>
 </template>
