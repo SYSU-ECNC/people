@@ -12,10 +12,9 @@ export default defineNuxtConfig({
       appId: '',
       appSecret: '',
     },
-    wework: {
-      corpId: '',
-      corpSecret: '',
-      agentId: '',
+    discourse: {
+      host: '',
+      secret: '',
     },
   },
   modules: [

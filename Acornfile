@@ -1,9 +1,7 @@
 args: {
   userConfigData: {
-    wechat: {
-      appId: ""
-      appSecret: ""
-    }
+    wechat: {}
+    discourse: {}
   }
 }
 
@@ -30,7 +28,9 @@ containers: {
       "POSTGRES_DB": "people"
       "POSTGRES_PASSWORD": "secret://pg-pass/token"
       "NUXT_WECHAT_APP_ID": "secret://env/wechatAppId"
-      "NUXT_WECHAT_APP_SECRET": "secret://env/wechatAppSecret"
+      "NUXT_WECHAT_APP_SECRET": "secret://env/wechatAppSecret",
+      "NUXT_DISCOURSE_HOST": "secret://env/discourseHost",
+      "NUXT_DISCOURSE_SECRET": "secret://env/discourseSecret",
     }
     dirs: {
       "/var/lib/postgresql/data": "volume://pgdata?subpath=data"
@@ -63,6 +63,8 @@ secrets: {
     data: {
       wechatAppId: args.userConfigData.wechat.appId,
       wechatAppSecret: args.userConfigData.wechat.appSecret
+      discourseHost: args.userConfigData.discourse.host
+      discourseSecret: args.userConfigData.discourse.secret
     }
   }
 }

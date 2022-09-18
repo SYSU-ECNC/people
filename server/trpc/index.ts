@@ -1,3 +1,4 @@
+import { createHmac } from 'node:crypto';
 import { verify } from '@node-rs/bcrypt';
 import * as trpc from '@trpc/server';
 import { z } from 'zod';
@@ -127,6 +128,62 @@ export const router = trpc
           wechatOpenId: openId,
         },
       });
+    },
+  })
+  .query('loginToDiscourse', {
+    input: z.object({
+      state: z.string(),
+    }),
+    async resolve({ ctx, input: { state } }) {
+      if (!ctx.session) {
+        throw new trpc.TRPCError({
+          code: 'UNAUTHORIZED',
+          message: '认不出你',
+        });
+      }
+
+      const nonce = await useRedis().get(`sso:discourse:${state}:nonce`);
+      const redirect = await useRedis().get(`sso:discourse:${state}:redirect`);
+      if (!nonce || !redirect) {
+        throw new trpc.TRPCError({
+          code: 'BAD_REQUEST',
+          message: '找不到回去的路了，请再试下吧',
+        });
+      }
+
+      const { netid } = ctx.session;
+
+      const user = await usePrisma().user.findUnique({
+        where: {
+          netid,
+        },
+      });
+      if (!user) {
+        throw new trpc.TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: '用户数据出了点错',
+        });
+      }
+
+      const payload = new URLSearchParams({
+        nonce,
+        email: user.email,
+        external_id: netid,
+        username: user.name,
+        name: user.name,
+        suppress_welcome_message: 'true',
+      });
+      const encodedPayload = Buffer.from(payload.toString()).toString('base64');
+
+      const hmac = createHmac('sha256', useRuntimeConfig().discourse.secret);
+      hmac.update(encodedPayload);
+      const sig = hmac.digest('hex');
+
+      return new URL(
+        `https://${
+          useRuntimeConfig().discourse.host
+        }/session/sso_login?sso=${encodedPayload}&sig=${sig}`
+      ).toString();
     },
   })
   .mutation('logout', {

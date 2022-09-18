@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { NCard, NAvatar, NResult } from 'naive-ui';
 import { useUserAgent } from '~~/composables/login/user-agent';
 
 definePageMeta({
