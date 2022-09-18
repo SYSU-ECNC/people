@@ -30,7 +30,7 @@
   "dependencies": {
     "@node-rs/bcrypt": "^1.6.1",
     "@prisma/client": "^4.3.1",
-    "@robinwongm/trpc-nuxt": "^0.3.3",
+    "@robinwongm/trpc-nuxt": "^0.3.7",
     "ioredis": "^5.2.3",
     "nanoid": "^4.0.0",
     "zod": "^3.19.1"

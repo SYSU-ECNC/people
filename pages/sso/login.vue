@@ -6,9 +6,7 @@ definePageMeta({
   layout: 'sso',
 });
 
-const headers = useClientHeaders();
 const { data: session } = await useAsyncQuery(['getSession']);
-headers.value = useRequestHeaders();
 const isSessionExist = computed(() => !!session.value);
 
 const route = useRoute();

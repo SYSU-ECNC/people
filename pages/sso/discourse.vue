@@ -5,7 +5,8 @@ definePageMeta({
   layout: 'sso',
 });
 
-const description = ref('咋回事呢');
+const title = ref('就快好了');
+const description = ref('正在带你过去');
 
 const {
   query: { state },
@@ -21,8 +22,12 @@ if (state && !Array.isArray(state)) {
   }
 
   if (error.value) {
+    title.value = '出问题了';
     description.value = error.value;
   }
+} else {
+  title.value = '出问题了';
+  description.value = '再试试吧';
 }
 </script>
 
@@ -32,14 +37,14 @@ if (state && !Array.isArray(state)) {
       <p class="text-base opacity-40 my-1">
         <span class="align-middle">登录至</span>
       </p>
-      <p class="text-3xl my-0 text-[#2080F0]">Discourse</p>
+      <p class="text-3xl my-0 text-[#2080F0]">网管之家</p>
     </div>
     <n-card>
       <n-result
         class="py-6"
         status="418"
         size="small"
-        title="出问题了"
+        :title="title"
         :description="description"
       />
     </n-card>
