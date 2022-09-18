@@ -1,3 +1,7 @@
+args: {
+  userConfigData: {}
+}
+
 containers: {
   app: {
     build: "."
@@ -20,6 +24,8 @@ containers: {
     env: {
       "POSTGRES_DB": "people"
       "POSTGRES_PASSWORD": "secret://pg-pass/token"
+      "NUXT_WECHAT_APP_ID": "secret://env/wechatAppId"
+      "NUXT_WECHAT_APP_SECRET": "secret://env/wechatAppSecret"
     }
     dirs: {
       "/var/lib/postgresql/data": "volume://pgdata?subpath=data"
@@ -45,6 +51,13 @@ secrets: {
     type: "template"
     data: {
       template: "postgresql://postgres:${secret://pg-pass/token}@pg:5432/people?schema=public"
+    }
+  }
+  "env": {
+    type: "opaque"
+    data: {
+      wechatAppId: args.userConfigData.wechat.appId,
+      wechatAppSecret: args.userConfigData.wechat.appSecret
     }
   }
 }
