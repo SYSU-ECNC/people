@@ -7,6 +7,8 @@ export default defineEventHandler(async (event) => {
   const { sso, sig } = getQuery(event);
 
   if (!sso || Array.isArray(sso) || !sig || Array.isArray(sso)) {
+    console.log('[Discourse] sso, sig missing');
+
     throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',
@@ -18,6 +20,9 @@ export default defineEventHandler(async (event) => {
   const calculatedSig = hmac.digest('hex');
 
   if (calculatedSig !== sig) {
+    console.log(
+      `[Discourse] sig not match, our sig = ${calculatedSig}, theirs = ${sig}`
+    );
     throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',
@@ -30,6 +35,9 @@ export default defineEventHandler(async (event) => {
   const nonce = params.get('nonce');
   const redirect = params.get('return_sso_url');
   if (!nonce || !redirect) {
+    console.log(
+      `[Discourse] nonce / return not found, nonce = ${nonce}, return = ${redirect}`
+    );
     throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',
