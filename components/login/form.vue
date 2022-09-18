@@ -149,8 +149,9 @@ const handleLoginFormSubmit = () => {
           ghost
           round
           size="large"
-          >飞书登录</icon-button
         >
+          暂不可用
+        </icon-button>
         <n-tooltip>
           <template #trigger>
             <icon-button
@@ -162,7 +163,7 @@ const handleLoginFormSubmit = () => {
               size="large"
             />
           </template>
-          微信登录
+          暂不可用
         </n-tooltip>
         <n-tooltip>
           <template #trigger>
@@ -174,7 +175,7 @@ const handleLoginFormSubmit = () => {
               size="large"
             />
           </template>
-          中山大学 CAS 登录（需要校园网）
+          中山大学 CAS 登录（暂不可用）
         </n-tooltip>
       </div>
     </div>
