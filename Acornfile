@@ -1,5 +1,10 @@
 args: {
-  userConfigData: {}
+  userConfigData: {
+    wechat: {
+      appId: ""
+      appSecret: ""
+    }
+  }
 }
 
 containers: {
