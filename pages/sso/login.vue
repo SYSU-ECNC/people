@@ -36,6 +36,7 @@ const logout = async () => {
       disable_wechat: 'true',
     },
   });
+  await refreshNuxtData();
   isLogoutLoading.value = false;
 };
 
