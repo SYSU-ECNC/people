@@ -44,8 +44,12 @@ const isLarkLoginEnabled = computed(
 );
 
 const domain = computed(() => {
-  const redirectUrl = Array.isArray(redirect) ? redirect[0] : redirect;
-  const url = new URL(redirectUrl ?? 'https://people.ecnc.link');
+  const redirectUrl = (Array.isArray(redirect) ? redirect[0] : redirect) ?? '';
+  if (redirectUrl.startsWith('/sso/discourse?')) {
+    return '网管之家';
+  }
+
+  const url = new URL(redirectUrl ?? '', 'https://people.ecnc.link');
   return url.host;
 });
 </script>

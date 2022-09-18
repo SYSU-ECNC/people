@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { NCard, NResult } from 'naive-ui';
+
 definePageMeta({
   layout: 'sso',
 });
