@@ -7,7 +7,7 @@ const { data: session } = await useAsyncQuery(['getSession']);
 if (!session.value) {
   await navigateTo({
     path: '/sso/login',
-    params: {
+    query: {
       redirect: '/sso/link/wechat',
       disable_wechat: 'true',
     },
