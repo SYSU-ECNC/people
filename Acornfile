@@ -19,8 +19,12 @@ containers: {
   app: {
     build: "."
     env: {
-      "DATABASE_URL": "secret://database-url/template",
-      "NUXT_REDIS_URL": "redis://redis:6379/",
+      "DATABASE_URL": "secret://database-url/template"
+      "NUXT_REDIS_URL": "redis://redis:6379/"
+      "NUXT_WECHAT_APP_ID": "secret://env/wechatAppId"
+      "NUXT_WECHAT_APP_SECRET": "secret://env/wechatAppSecret"
+      "NUXT_DISCOURSE_HOST": "secret://env/discourseHost"
+      "NUXT_DISCOURSE_SECRET": "secret://env/discourseSecret"
     }
     dependsOn: [
       "pg",
@@ -37,10 +41,6 @@ containers: {
     env: {
       "POSTGRES_DB": "people"
       "POSTGRES_PASSWORD": "secret://pg-pass/token"
-      "NUXT_WECHAT_APP_ID": "secret://env/wechatAppId"
-      "NUXT_WECHAT_APP_SECRET": "secret://env/wechatAppSecret",
-      "NUXT_DISCOURSE_HOST": "secret://env/discourseHost",
-      "NUXT_DISCOURSE_SECRET": "secret://env/discourseSecret",
     }
     dirs: {
       "/var/lib/postgresql/data": "volume://pgdata?subpath=data"
