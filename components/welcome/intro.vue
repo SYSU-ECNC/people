@@ -7,8 +7,13 @@ defineEmits<{ (event: 'next'): void }>();
 <template>
   <n-card title="线上入职流程">
     <n-steps vertical status="process">
-      <n-step title="完善必要的个人信息">
+      <n-step title="完善个人信息">
         <span class="text-black text-opacity-60">请务必认真填写 & 核实</span>
+      </n-step>
+      <n-step title="设置 ECNC 账号">
+        <span class="text-black text-opacity-60">
+          ECNC 账号用于登录 ECNC 的各种系统
+        </span>
       </n-step>
       <n-step title="开通飞书账号">
         <span class="text-black text-opacity-60">

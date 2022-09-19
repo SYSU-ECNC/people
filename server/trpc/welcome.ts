@@ -1,5 +1,6 @@
 import * as trpc from '@trpc/server';
 import { z } from 'zod';
+import { hash } from '@node-rs/bcrypt';
 import { Context } from './context';
 import { usePrisma, useRedis } from '~/server/lib/storage';
 import { larkClient } from '~/server/lib/lark';
@@ -123,6 +124,29 @@ export const router = trpc
       });
     },
   })
+  .mutation('updatePassword', {
+    input: z.object({
+      encryptedNetid: z.string(),
+      password: z
+        .string()
+        .regex(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
+        ),
+    }),
+    async resolve({ input }) {
+      const user = await getUserFromEncryptedNetid(input.encryptedNetid);
+
+      await usePrisma().user.update({
+        where: {
+          netid: user.netid,
+        },
+        data: {
+          password: await hash(input.password),
+          passwordVersion: '2',
+        },
+      });
+    },
+  })
   .mutation('updateUserInfo', {
     input: z.object({
       encryptedNetid: z.string(),
@@ -155,20 +179,7 @@ export const router = trpc
     }),
     async resolve({ input: { encryptedNetid } }) {
       const user = await getUserFromEncryptedNetid(encryptedNetid);
-
-      const result = await larkClient.contact.user.batchGetId({
-        data: {
-          mobiles: [user.phone ?? ''],
-        },
-        params: {
-          user_id_type: 'union_id',
-        },
-      });
-      const larkUser = result.data?.user_list?.find(
-        (currentLarkUser) => currentLarkUser.mobile === user.phone
-      );
-
-      return !!larkUser?.user_id;
+      return !!user.larkUnionId;
     },
   })
   .mutation('createLarkAccount', {

@@ -28,7 +28,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ (event: 'next'): void }>();
 
-const formRef: Ref<FormInst | null> = ref(null);
+const formRef = ref<FormInst | null>(null);
 
 const model = ref({
   ...props.userInfo,

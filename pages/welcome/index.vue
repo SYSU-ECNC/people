@@ -45,10 +45,16 @@ const step = ref(0);
           :user-info="user"
           @next="step = 2"
         ></welcome-register>
-        <welcome-link
+        <welcome-password
           v-else-if="step === 2"
           :encrypted-netid="encryptedNetid"
+          :netid="user.netid"
           @next="step = 3"
+        ></welcome-password>
+        <welcome-link
+          v-else-if="step === 3"
+          :encrypted-netid="encryptedNetid"
+          @next="step = 4"
         ></welcome-link>
         <welcome-done v-else></welcome-done>
       </div>
