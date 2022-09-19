@@ -8,8 +8,12 @@ localData: {
       appId: ""
       appSecret: ""
     }
+    lark: {
+      appId: ""
+      appSecret: ""
+      welcomeLetterLink: ""
+    }
     discourse: {
-      host: ""
       secret: ""
     }
   }, args.userConfigData)
@@ -23,7 +27,9 @@ containers: {
       "NUXT_REDIS_URL": "redis://redis:6379/"
       "NUXT_WECHAT_APP_ID": "secret://env/wechatAppId"
       "NUXT_WECHAT_APP_SECRET": "secret://env/wechatAppSecret"
-      "NUXT_DISCOURSE_HOST": "secret://env/discourseHost"
+      "NUXT_LARK_APP_ID": "secret://env/larkAppId"
+      "NUXT_LARK_APP_SECRET": "secret://env/larkAppSecret"
+      "NUXT_LARK_WELCOME_LETTER_LINK": "secret://env/larkWelcomeLetterLink"
       "NUXT_DISCOURSE_SECRET": "secret://env/discourseSecret"
     }
     dependsOn: [
@@ -73,7 +79,9 @@ secrets: {
     data: {
       wechatAppId: localData.config.wechat.appId,
       wechatAppSecret: localData.config.wechat.appSecret
-      discourseHost: localData.config.discourse.host
+      larkAppId: localData.config.lark.appId,
+      larkAppSecret: localData.config.lark.appSecret,
+      larkWelcomeLetterLink: localData.config.lark.welcomeLetterLink,
       discourseSecret: localData.config.discourse.secret
     }
   }
