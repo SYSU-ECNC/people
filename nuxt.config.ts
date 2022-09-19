@@ -12,8 +12,12 @@ export default defineNuxtConfig({
       appId: '',
       appSecret: '',
     },
+    lark: {
+      appId: '',
+      appSecret: '',
+      welcomeLetterLink: '',
+    },
     discourse: {
-      host: '',
       secret: '',
     },
   },

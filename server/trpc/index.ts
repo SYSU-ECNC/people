@@ -4,9 +4,8 @@ import * as trpc from '@trpc/server';
 import { z } from 'zod';
 import { usePrisma, useRedis } from '../lib/storage';
 import { createSession, deleteSession } from '../lib/session';
-
+import { router as welcomeRouter } from './welcome';
 import type { Context } from './context';
-
 export { createContext } from './context';
 
 interface KratosSession {
@@ -20,6 +19,7 @@ interface KratosSession {
 
 export const router = trpc
   .router<Context>()
+  .merge('welcome.', welcomeRouter)
   .query('getSession', {
     resolve({ ctx: { session } }) {
       if (!session) {

@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
   );
   if ('errcode' in response) {
     console.error('wechatAccessToken error', response);
-    const redirectUrl = new URL(redirect);
+    const redirectUrl = new URL(redirect, 'https://people.ecnc.link/');
     redirectUrl.searchParams.set(
       'error',
       '获取微信用户信息时发生错误，请重试。'
@@ -66,7 +66,7 @@ export default defineEventHandler(async (event) => {
   const openId = response.openid;
   await useRedis().setex(`sso:wechat:${state}:openid`, 600, openId);
 
-  const redirectUrl = new URL(redirect);
+  const redirectUrl = new URL(redirect, 'https://people.ecnc.link/');
   redirectUrl.searchParams.set('state', state);
 
   return sendRedirect(event, redirectUrl.toString(), 302);

@@ -28,6 +28,7 @@
     "prisma": "^4.3.1"
   },
   "dependencies": {
+    "@larksuiteoapi/node-sdk": "^1.1.0",
     "@node-rs/bcrypt": "^1.6.1",
     "@prisma/client": "^4.3.1",
     "@robinwongm/trpc-nuxt": "^0.3.7",
