@@ -1,12 +1,16 @@
 import * as trpc from '@trpc/server';
 import { z } from 'zod';
 import { hash } from '@node-rs/bcrypt';
+import smCrypto from 'sm-crypto';
 import { Context } from './context';
 import { usePrisma, useRedis } from '~/server/lib/storage';
 import { larkClient } from '~/server/lib/lark';
 
 async function getUserFromEncryptedNetid(encryptedNetid: string) {
-  const netid = encryptedNetid;
+  const netid = smCrypto.sm4.decrypt(
+    encryptedNetid,
+    useRuntimeConfig().welcomeSecret
+  );
 
   const user = await usePrisma().user.findUnique({ where: { netid } });
   if (!user) {

@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     discourse: {
       secret: '',
     },
+    welcomeSecret: '',
   },
   modules: [
     '@nuxtjs/tailwindcss',

@@ -34,6 +34,7 @@
     "@robinwongm/trpc-nuxt": "^0.3.7",
     "ioredis": "^5.2.3",
     "nanoid": "^4.0.0",
+    "sm-crypto": "^0.3.11",
     "zod": "^3.19.1"
   }
 }

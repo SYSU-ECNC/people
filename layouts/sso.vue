@@ -10,7 +10,7 @@
       <img alt="ECNC Logo" class="w-20 h-20" src="~/assets/ecnc_white.svg" />
     </div>
     <div
-      class="w-full md:w-[768px] box-border md:box-content px-10 pb-4 flex-0 flex flex-col justify-between items-center"
+      class="w-full -mt-4 bg-white rounded-t-2xl md:rounded-none md:w-[768px] md:mt-0 box-border md:box-content px-10 md:pb-4 flex-0 flex flex-col justify-between items-center"
     >
       <header></header>
       <slot />
