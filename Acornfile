@@ -16,6 +16,7 @@ localData: {
     discourse: {
       secret: ""
     }
+    welcomeSecret: ""
   }, args.userConfigData)
 }
 
@@ -31,6 +32,7 @@ containers: {
       "NUXT_LARK_APP_SECRET": "secret://env/larkAppSecret"
       "NUXT_LARK_WELCOME_LETTER_LINK": "secret://env/larkWelcomeLetterLink"
       "NUXT_DISCOURSE_SECRET": "secret://env/discourseSecret"
+      "NUXT_WELCOME_SECRET": "secret://env/welcomeSecret"
     }
     dependsOn: [
       "pg",
@@ -82,7 +84,8 @@ secrets: {
       larkAppId: localData.config.lark.appId,
       larkAppSecret: localData.config.lark.appSecret,
       larkWelcomeLetterLink: localData.config.lark.welcomeLetterLink,
-      discourseSecret: localData.config.discourse.secret
+      discourseSecret: localData.config.discourse.secret,
+      welcomeSecret: localData.config.welcomeSecret
     }
   }
 }
