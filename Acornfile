@@ -1,5 +1,6 @@
 args: {
   userConfigData: {}
+  hydraConfig: {}
 }
 
 localData: {
@@ -40,6 +41,20 @@ containers: {
     ]
     ports: "3000/http"
   }
+  hydra-migration: {
+    image: "oryd/hydra:v1.11.10"
+    env: {
+      DSN: "secret://hydra-database-dsn/dsn"
+    }
+    command: "serve all"
+    files: {
+      "/etc/config/hydra/hydra.yml": "secret://hydra-config/config"
+    }
+    dependsOn: [
+      "pg",
+      "hydra-migration"
+    ]
+  }
   redis: {
     image: "redis:alpine"
     ports: "6379/tcp"
@@ -54,6 +69,19 @@ containers: {
       "/var/lib/postgresql/data": "volume://pgdata?subpath=data"
     }
     ports: "5432/tcp"
+  }
+}
+
+jobs: {
+  "hydra-migration": {
+    image: "oryd/hydra:v1.11.10"
+    env: {
+      DSN: "secret://hydra-database-dsn/dsn"
+    }
+    command: "migrate -c /etc/config/hydra/hydra.yml sql -e --yes"
+    files: {
+      "/etc/config/hydra/hydra.yml": "secret://hydra-config/config"
+    }
   }
 }
 
@@ -74,6 +102,16 @@ secrets: {
     type: "template"
     data: {
       template: "postgresql://postgres:${secret://pg-pass/token}@pg:5432/people?schema=public"
+    }
+  }
+  "hydra-database-dsn": {
+    type: "template"
+    data: dsn: "postgresql://postgres:${secret://pg-pass/token}@pg:5432/hydra?schema=public"
+  }
+  "hydra-config": {
+    type: "opaque"
+    data: {
+      config: std.toYAML(args.hydraConfig)
     }
   }
   "env": {
