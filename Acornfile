@@ -41,7 +41,7 @@ containers: {
     ]
     ports: "3000/http"
   }
-  hydra-migration: {
+  hydra: {
     image: "oryd/hydra:v1.11.10"
     env: {
       DSN: "secret://hydra-database-dsn/dsn"
