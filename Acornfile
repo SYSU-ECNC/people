@@ -54,6 +54,10 @@ containers: {
       "pg",
       "hydra-migration"
     ]
+    ports: [
+      "4444/http",
+      "4445/tcp"
+    ]
   }
   redis: {
     image: "redis:alpine"
