@@ -40,6 +40,9 @@ export const useSession = async (event: H3Event) => {
       netid: parsedUser.netid,
       name: parsedUser.name,
       studentId: parsedUser.studentId,
+      level: parsedUser.level,
+      wechatOpenId: parsedUser.wechatOpenId,
+      larkUnionId: parsedUser.larkUnionId,
     };
   } catch (e) {
     return null;
