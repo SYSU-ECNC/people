@@ -49,7 +49,7 @@ containers: {
     env: {
       DSN: "secret://hydra-database-dsn/dsn"
     }
-    command: "serve all"
+    command: "serve all -c /etc/config/hydra/hydra.yml"
     files: {
       "/etc/config/hydra/hydra.yml": "secret://hydra-config/config"
     }
