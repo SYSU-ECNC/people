@@ -20,6 +20,10 @@ export default defineNuxtConfig({
     discourse: {
       secret: '',
     },
+    hydra: {
+      adminPath: '',
+      publicPath: '',
+    },
     welcomeSecret: '',
   },
   modules: [

@@ -17,6 +17,9 @@ localData: {
     discourse: {
       secret: ""
     }
+    hydra: {
+      adminPath: ""
+    }
     welcomeSecret: ""
   }, args.userConfigData)
 }
@@ -127,6 +130,7 @@ secrets: {
       larkAppSecret: localData.config.lark.appSecret,
       larkWelcomeLetterLink: localData.config.lark.welcomeLetterLink,
       discourseSecret: localData.config.discourse.secret,
+      hydraAdminPath: localData.config.hydra.adminPath,
       welcomeSecret: localData.config.welcomeSecret
     }
   }
