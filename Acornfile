@@ -42,14 +42,14 @@ containers: {
       "pg",
       "redis"
     ]
-    ports: "3000/http"
+    ports: "3000/tcp"
   }
   hydra: {
     image: "oryd/hydra:v1.11.10"
     env: {
       DSN: "secret://hydra-database-dsn/dsn"
     }
-    command: "serve all -c /etc/config/hydra/hydra.yml"
+    command: "serve all -c /etc/config/hydra/hydra.yml --dangerous-force-http"
     files: {
       "/etc/config/hydra/hydra.yml": "secret://hydra-config/config"
     }
@@ -58,7 +58,7 @@ containers: {
       "hydra-migration"
     ]
     ports: [
-      "4444/http",
+      "4444/tcp",
       "4445/tcp"
     ]
   }
