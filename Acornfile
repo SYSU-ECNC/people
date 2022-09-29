@@ -50,7 +50,7 @@ containers: {
     env: {
       DSN: "secret://hydra-database-dsn/dsn"
     }
-    command: "serve all -c /etc/config/hydra/hydra.yml --dangerous-force-http"
+    command: "serve all -c /etc/config/hydra/hydra.yml --dangerous-force-http --dangerous-allow-insecure-redirect-urls http://wiki.ecnc.xyz/plugins/servlet/oauth/callback"
     files: {
       "/etc/config/hydra/hydra.yml": "secret://hydra-config/config"
     }
