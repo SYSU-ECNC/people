@@ -40,9 +40,11 @@ export default defineEventHandler(async (event) => {
     session: {
       id_token: {
         sub: session.netid,
+        netid: session.netid,
         name: session.name,
         nickname: session.name,
         email: `${session.netid}@ecnc.link`,
+        level: session.level,
       },
     },
   });
