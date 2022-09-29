@@ -36,6 +36,7 @@ containers: {
       "NUXT_LARK_APP_SECRET": "secret://env/larkAppSecret"
       "NUXT_LARK_WELCOME_LETTER_LINK": "secret://env/larkWelcomeLetterLink"
       "NUXT_DISCOURSE_SECRET": "secret://env/discourseSecret"
+      "NUXT_HYDRA_ADMIN_PATH": "secret://env/hydraAdminPath"
       "NUXT_WELCOME_SECRET": "secret://env/welcomeSecret"
     }
     dependsOn: [
