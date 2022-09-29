@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-import {
-  NForm,
-  NFormItem,
-  NInput,
-  NDivider,
-  NTooltip,
-  FormInst,
-} from 'naive-ui';
+import { NForm, NFormItem, NInput, NTooltip, FormInst } from 'naive-ui';
 import type { TError } from '@robinwongm/trpc-nuxt/dist/runtime/client';
 
 const emit = defineEmits<{
@@ -108,7 +101,7 @@ const handleLoginFormSubmit = () => {
           @keyup.enter="handleLoginFormSubmit"
         />
       </n-form-item>
-      <div class="text-right mb-2">
+      <div class="mb-2 text-right">
         <icon-button
           icon="icon-park-outline:distraught-face"
           class="text-gray-400"
@@ -137,47 +130,5 @@ const handleLoginFormSubmit = () => {
         {{ errorMessage }}
       </n-tooltip>
     </n-form>
-    <n-divider title-placement="center">
-      <span class="text-xs opacity-60">快捷登录方式</span>
-    </n-divider>
-    <div class="my-0">
-      <div class="flex justify-between">
-        <icon-button
-          class="flex-1 mr-3"
-          icon="icon-park-outline:new-lark"
-          color="#3574f7"
-          ghost
-          round
-          size="large"
-        >
-          暂不可用
-        </icon-button>
-        <n-tooltip>
-          <template #trigger>
-            <icon-button
-              class="mr-3"
-              icon="icon-park-outline:wechat"
-              color="#07C160"
-              ghost
-              circle
-              size="large"
-            />
-          </template>
-          暂不可用
-        </n-tooltip>
-        <n-tooltip>
-          <template #trigger>
-            <icon-button
-              icon="nimbus:university"
-              color="#0288cc"
-              ghost
-              circle
-              size="large"
-            />
-          </template>
-          中山大学 CAS 登录（暂不可用）
-        </n-tooltip>
-      </div>
-    </div>
   </div>
 </template>
