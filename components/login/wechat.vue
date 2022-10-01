@@ -6,7 +6,13 @@ const route = useRoute();
 const navigateToUrl = ref('');
 const errorMessage = ref('');
 
-const { redirect, error, state, disable_wechat: disableWechat } = route.query;
+const {
+  redirect,
+  error,
+  state,
+  from,
+  disable_wechat: disableWechat,
+} = route.query;
 
 async function authorize() {
   const params = new URLSearchParams({
@@ -45,7 +51,7 @@ if (error) {
   errorMessage.value = Array.isArray(error) ? error.join('\n') : error;
 } else if (disableWechat) {
   // do nothing
-} else if (state) {
+} else if (from === 'wechat' && state) {
   await login();
 } else {
   await authorize();

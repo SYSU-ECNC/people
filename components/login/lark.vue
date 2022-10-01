@@ -6,7 +6,7 @@ const route = useRoute();
 const navigateToUrl = ref('');
 const errorMessage = ref('');
 
-const { redirect, error, state, disable_lark: disableLark } = route.query;
+const { redirect, error, state, from, disable_lark: disableLark } = route.query;
 
 async function authorize() {
   const params = new URLSearchParams({
@@ -45,7 +45,7 @@ if (error) {
   errorMessage.value = Array.isArray(error) ? error.join('\n') : error;
 } else if (disableLark) {
   // do nothing
-} else if (state) {
+} else if (from === 'lark' && state) {
   await login();
 } else {
   await authorize();
