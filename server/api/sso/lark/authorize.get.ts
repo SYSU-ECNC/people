@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     'https://open.feishu.cn/open-apis/authen/v1/index'
   );
   const params = authorizeUrl.searchParams;
-  params.append('appid', useRuntimeConfig().lark.appId);
+  params.append('app_id', useRuntimeConfig().lark.appId);
   params.append(
     'redirect_uri',
     'https://people.ecnc.link/api/sso/lark/callback'

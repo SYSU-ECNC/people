@@ -12,11 +12,12 @@ const larkLogin = async () => {
 
   isLarkLoginLoading.value = true;
 
-  const params = new URLSearchParams({ redirect });
+  const params = new URLSearchParams({
+    redirect: new URL(route.fullPath, 'https://people.ecnc.link/').toString(),
+  });
   const { authorizeUrl } = await $fetch(
     '/api/sso/lark/authorize?' + params.toString()
   );
-
   await navigateTo(authorizeUrl, {
     external: true,
     redirectCode: 302,

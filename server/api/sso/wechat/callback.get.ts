@@ -68,6 +68,7 @@ export default defineEventHandler(async (event) => {
 
   const redirectUrl = new URL(redirect, 'https://people.ecnc.link/');
   redirectUrl.searchParams.set('state', state);
+  redirectUrl.searchParams.set('from', 'wechat');
 
   return sendRedirect(event, redirectUrl.toString(), 302);
 });

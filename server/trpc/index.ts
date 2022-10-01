@@ -91,6 +91,35 @@ export const router = trpc
       await createSession(ctx.event, user);
     },
   })
+  .query('loginByLark', {
+    input: z.object({
+      state: z.string(),
+    }),
+    async resolve({ ctx, input: { state } }) {
+      const unionId = await useRedis().get(`sso:lark:${state}:unionId`);
+      if (!unionId) {
+        throw new trpc.TRPCError({
+          code: 'BAD_REQUEST',
+          message: '获取飞书 UnionID 时发生错误，请重试。',
+        });
+      }
+
+      const user = await usePrisma().user.findUnique({
+        where: {
+          larkUnionId: unionId,
+        },
+      });
+
+      if (!user) {
+        throw new trpc.TRPCError({
+          code: 'UNAUTHORIZED',
+          message: '该飞书账号无法验证为 ECNC 成员，请使用其他登录方式。',
+        });
+      }
+
+      await createSession(ctx.event, user);
+    },
+  })
   .query('linkWechatFromSession', {
     input: z.object({
       state: z.string(),

@@ -10,7 +10,7 @@ const { data: session } = await useAsyncQuery(['getSession']);
 const isSessionExist = computed(() => !!session.value);
 
 const route = useRoute();
-const { redirect } = route.query;
+const { redirect, from } = route.query;
 
 const finishRedirection = async () => {
   await navigateTo(Array.isArray(redirect) ? redirect[0] : redirect, {
@@ -41,11 +41,13 @@ const logout = async () => {
 };
 
 const userAgent = useUserAgent().toLowerCase();
-const isWeChatLoginEnabled = computed(
-  () => !isSessionExist.value && userAgent.includes('micromessenger')
+const isWeChatAutoLoginEnabled = computed(
+  () =>
+    !isSessionExist.value &&
+    (userAgent.includes('micromessenger') || from === 'wechat')
 );
-const isLarkLoginEnabled = computed(
-  () => !isSessionExist.value && userAgent.includes('lark')
+const isLarkAutoLoginEnabled = computed(
+  () => !isSessionExist.value && (userAgent.includes('lark') || from === 'lark')
 );
 
 const domain = computed(() => {
@@ -101,7 +103,8 @@ const domain = computed(() => {
       </template>
     </n-card>
     <div v-else>
-      <login-wechat v-if="isWeChatLoginEnabled" />
+      <login-wechat v-if="isWeChatAutoLoginEnabled" />
+      <login-lark v-if="isLarkAutoLoginEnabled" />
       <login-form @success="handleLoginSuccess" />
       <login-third-party />
     </div>
