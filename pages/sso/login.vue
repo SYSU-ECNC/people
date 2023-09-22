@@ -43,6 +43,7 @@ const logout = async () => {
 const userAgent = useUserAgent().toLowerCase();
 const isWeChatAutoLoginEnabled = computed(
   () =>
+    false &&
     !isSessionExist.value &&
     (userAgent.includes('micromessenger') || from === 'wechat')
 );
